@@ -33,4 +33,8 @@ A command-line based **Expense Tracker** built with Python to help users manage 
 ---
 
 ## 📂 Project Structure
+Expense_Tracker_Python/ │ ├── ex.py # Main application file ├── expenses.csv # Auto-generated file storing expenses └── README.md # Project documentation
+
+
+
 
