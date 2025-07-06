@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Expense Tracker Web App</h1>
+
+        <h2>Add Expense</h2>
+        <form method="POST" action="/add">
+            <input type="text" name="name" placeholder="Expense Name" required>
+            <input type="number" name="amount" placeholder="Amount" step="0.01" required>
+            <select name="category">
+                {% for cat in ["Food", "Travel", "Entertainment", "Accommodation", "Shopping", "Misc"] %}
+                    <option value="{{ cat }}">{{ cat }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Add</button>
+        </form>
+
+        <h2>Expenses (Total Spent: Rs. {{ total_spent }})</h2>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ expense['Date'] }}</td>
+                <td>{{ expense['Name'] }}</td>
+                <td>{{ expense['Amount'] }}</td>
+                <td>{{ expense['Category'] }}</td>
+                <td><a href="/delete/{{ expense['Name'] }}">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        {% if chart %}
+        <h2>Expense Distribution Chart</h2>
+        <img src="{{ url_for('static', filename='expense_chart.png') }}" alt="Expense Chart" style="width:50%; height:auto;">
+        {% else %}
+        <p>No expenses yet to generate a chart.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
